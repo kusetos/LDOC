@@ -1,0 +1,17 @@
+[Unit]
+Description=Matching Engine Container
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker run \
+    --name matching-engine \
+    --pull always \
+    -p 8080:8080 \
+    kusetos/matching-engine:latest
+ExecStop=/usr/bin/docker stop matching-engine
+ExecStopPost=/usr/bin/docker rm matching-engine
+
+[Install]
+WantedBy=multi-user.target
