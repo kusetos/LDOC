@@ -1,0 +1,22 @@
+---
+- name: Ensure auditd rules directory exists
+  file:
+    path: /etc/audit/rules.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Deploy security audit rules
+  template:
+    src: 99-security-audit.rules.j2
+    dest: /etc/audit/rules.d/99-security-audit.rules
+    owner: root
+    group: root
+    mode: '0640'
+
+- name: Restart auditd to load new rules
+  service:
+    name: auditd
+    state: restarted
+    enabled: yes

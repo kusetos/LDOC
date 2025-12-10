@@ -1,0 +1,29 @@
+---
+- name: Install journal-related tools
+  apt:
+    name:
+      - rsyslog
+      - auditd
+      - audispd-plugins
+      - jq
+      - inotify-tools
+    state: present
+    update_cache: yes
+
+- name: Copy helper scripts
+  copy:
+    src: ../../files/journal-watch.sh
+    dest: /usr/local/bin/journal-watch.sh
+    mode: '0755'
+
+- name: Copy journal search script
+  copy:
+    src: ../../files/journal-search.sh
+    dest: /usr/local/bin/journal-search.sh
+    mode: '0755'
+
+- name: Copy journald services helper
+  copy:
+    src: ../../files/journal-services.sh
+    dest: /usr/local/bin/journal-services.sh
+    mode: '0755'

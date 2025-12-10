@@ -1,0 +1,8 @@
+---
+- name: Configure Ubuntu journal auditing and tools
+  hosts: journal_hosts
+  become: yes
+  roles:
+    - journal_config
+    - journal_tools
+    - audit_rules

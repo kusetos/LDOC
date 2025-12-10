@@ -1,0 +1,20 @@
+---
+- name: Ensure persistent journal storage
+  lineinfile:
+    path: /etc/systemd/journald.conf
+    regexp: '^#?Storage='
+    line: 'Storage=persistent'
+    backup: yes
+
+- name: Ensure rate limiting is configured
+  lineinfile:
+    path: /etc/systemd/journald.conf
+    regexp: '^#?RateLimitInterval='
+    line: 'RateLimitInterval=30s'
+    backup: yes
+
+- name: Restart systemd-journald to apply changes
+  service:
+    name: systemd-journald
+    state: restarted
+    enabled: yes

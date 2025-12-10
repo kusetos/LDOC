@@ -1,0 +1,16 @@
+# Audit rules for security-sensitive events
+# Generated from template
+
+# Monitor changes to /etc
+-w /etc -p wa -k etc_changes
+
+# Monitor attempts to change audit configuration
+-w /etc/audit/ -p wa -k audit_config
+
+# Record all attempts to use mount/umount
+-a always,exit -F arch=b64 -S mount -S umount -k mounts
+
+# Track changes to su, sudo, passwd, group
+-w /etc/passwd -p wa -k identity
+-w /etc/group -p wa -k identity
+-w /etc/shadow -p wa -k identity

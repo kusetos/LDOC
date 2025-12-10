@@ -1,0 +1,10 @@
+all:
+  children:
+    journal_hosts:
+      hosts:
+        journal-1:
+          ansible_host: 192.0.2.10
+          ansible_user: root
+        journal-2:
+          ansible_host: 192.0.2.11
+          ansible_user: root
