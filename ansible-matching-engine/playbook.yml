@@ -1,0 +1,10 @@
+---
+- name: Automate Matching Engine Deployment
+  hosts: servers
+  become: yes
+
+  roles:
+    - users
+    - docker
+    - systemd
+    - cron

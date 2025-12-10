@@ -1,0 +1,33 @@
+---
+- name: Ensure scripts directory exists
+  file:
+    path: /opt/scripts
+    state: directory
+    mode: "0755"
+
+- name: Copy check script
+  copy:
+    src: check_engine.sh
+    dest: /opt/scripts/check_engine.sh
+    mode: "0755"
+
+- name: Copy backup script
+  copy:
+    src: backup_logs.sh
+    dest: /opt/scripts/backup_logs.sh
+    mode: "0755"
+
+- name: Install cron job for health check
+  cron:
+    name: "Health Check"
+    user: root
+    minute: "*/5"
+    job: "/opt/scripts/check_engine.sh"
+
+- name: Install cron job for backups
+  cron:
+    name: "Backup Logs"
+    user: root
+    hour: "0"
+    minute: "0"
+    job: "/opt/scripts/backup_logs.sh"

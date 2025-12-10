@@ -1,0 +1,20 @@
+[Unit]
+Description=Matching Engine Docker Container
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=matching-engine
+Restart=always
+RestartSec=10
+
+ExecStart=/usr/bin/docker run --rm \
+  --name matching-engine \
+  -v /var/log/matching-engine:/var/log/matching-engine \
+  kusetos/matching-engine:latest
+
+ExecStop=/usr/bin/docker stop matching-engine
+
+[Install]
+WantedBy=multi-user.target

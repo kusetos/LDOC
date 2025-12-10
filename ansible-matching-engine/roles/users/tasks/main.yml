@@ -1,0 +1,12 @@
+---
+- name: Ensure ops group exists
+  group:
+    name: ops
+    state: present
+
+- name: Ensure ops user exists
+  user:
+    name: ops
+    group: ops
+    shell: /bin/bash
+    create_home: yes

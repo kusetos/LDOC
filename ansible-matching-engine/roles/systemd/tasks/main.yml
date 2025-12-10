@@ -1,0 +1,24 @@
+---
+- name: Copy matching-engine systemd service file
+  copy:
+    src: matching-engine.service
+    dest: /etc/systemd/system/matching-engine.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Reload systemd
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: yes
+
+- name: Start and enable matching-engine service
+  systemd:
+    name: matching-engine
+    state: started
+    enabled: yes
+
+handlers:
+  - name: Reload systemd
+    systemd:
+      daemon_reload: yes
